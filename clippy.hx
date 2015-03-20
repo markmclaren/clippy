@@ -5,11 +5,15 @@ import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import flash.display.Bitmap;
+import flash.desktop.Clipboard;
+import flash.desktop.ClipboardFormats;
 
 class Clippy {
   // Main
   static function main() {
     var text:String = flash.Lib.current.loaderInfo.parameters.text;
+	var html:String = flash.Lib.current.loaderInfo.parameters.html;
+	
     
     // label
     
@@ -35,7 +39,14 @@ class Clippy {
     button.hitTestState = new ButtonDown();
     
     button.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) {
-      flash.system.System.setClipboard(text);
+      // Clear out the clipboard before starting to copy data
+	  Clipboard.generalClipboard.clear();
+	  if (text != null) {
+	   	Clipboard.generalClipboard.setData(ClipboardFormats.TEXT_FORMAT, text);
+	  }
+	  if (html != null) {
+ 	    Clipboard.generalClipboard.setData(ClipboardFormats.HTML_FORMAT, html);	  
+	  }
       label.text = "copied!";
       label.setTextFormat(format);
     });
