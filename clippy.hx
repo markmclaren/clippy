@@ -4,6 +4,7 @@ import flash.display.SimpleButton;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
+import flash.display.Bitmap;
 
 class Clippy {
   // Main
@@ -28,10 +29,10 @@ class Clippy {
     
     var button:SimpleButton = new SimpleButton();
     button.useHandCursor = true;
-    button.upState = flash.Lib.attach("button_up");
-    button.overState = flash.Lib.attach("button_over");
-    button.downState = flash.Lib.attach("button_down");
-    button.hitTestState = flash.Lib.attach("button_down");
+    button.upState = new ButtonUp();
+    button.overState = new ButtonOver();
+    button.downState = new ButtonDown();
+    button.hitTestState = new ButtonDown();
     
     button.addEventListener(MouseEvent.MOUSE_UP, function(e:MouseEvent) {
       flash.system.System.setClipboard(text);
@@ -52,3 +53,7 @@ class Clippy {
     flash.Lib.current.addChild(button);
   }
 }
+
+class ButtonUp extends Bitmap { public function new() { super(); } }
+class ButtonOver extends Bitmap { public function new() { super(); } }
+class ButtonDown extends Bitmap { public function new() { super(); } }
